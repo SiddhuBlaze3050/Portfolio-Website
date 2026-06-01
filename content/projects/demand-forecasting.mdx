@@ -1,0 +1,38 @@
+---
+title: "AI-Powered Demand Forecasting Engine"
+description: "A machine learning system that predicts product demand with inventory-aware adjustments, reducing forecast error by 35%."
+techStack: ["Python", "TensorFlow", "FastAPI", "React", "PostgreSQL", "Docker"]
+liveUrl: "https://demo.example.com/forecasting"
+repoUrl: "https://github.com/yourusername/demand-forecasting"
+cover: "/images/projects/forecasting-cover.png"
+featured: true
+date: "2025-08-15"
+---
+
+## Overview
+
+Built an end-to-end demand forecasting system for a retail client that processes historical sales data, seasonality patterns, and real-time inventory levels to generate accurate demand predictions.
+
+## The Challenge
+
+Traditional forecasting models ignored inventory constraints, leading to phantom demand signals when products were out of stock. This caused a feedback loop where understocked items appeared to have low demand.
+
+## Solution Architecture
+
+The system consists of three major components:
+
+1. **Data Pipeline** — ETL process that ingests sales transactions, inventory snapshots, and external signals (weather, holidays, promotions)
+2. **ML Engine** — Ensemble of LSTM and XGBoost models with a custom inventory-censoring layer
+3. **Dashboard** — React-based UI for business users to visualize forecasts, adjust parameters, and export reports
+
+## Key Results
+
+- **35% reduction** in mean absolute percentage error (MAPE) compared to the previous rule-based system
+- **$2.1M annual savings** in reduced overstock and stockout costs
+- Processing **50,000+ SKUs** with daily forecast refreshes in under 15 minutes
+
+## Technical Highlights
+
+- Implemented a custom loss function that accounts for inventory censoring
+- Built an A/B testing framework to compare model versions in production
+- Containerized with Docker and deployed on AWS ECS with auto-scaling

@@ -1,0 +1,56 @@
+---
+title: "Inventory-Aware Demand Forecasting at Scale"
+date: "2025-09-10"
+problem: "Traditional forecasting models treat out-of-stock periods as zero demand, creating a negative feedback loop that systematically underestimates true demand."
+approach: "Designed a custom inventory-censoring layer for the ML model that distinguishes between genuine low demand and artificial zeros caused by stockouts."
+outcome: "35% reduction in forecast error (MAPE) and $2.1M annual savings in inventory costs across 50,000+ SKUs."
+techStack: ["Python", "TensorFlow", "FastAPI", "PostgreSQL", "Docker", "AWS"]
+---
+
+## Background
+
+A mid-size retail company was using a rule-based forecasting system that had one critical flaw: when a product was out of stock, it recorded zero sales. The forecasting model then interpreted this as "nobody wants this product" and reduced future orders — making the stockout even worse.
+
+## Deep Dive: The Censoring Problem
+
+In statistics, this is known as **right-censoring**: observed demand is artificially truncated by available inventory. The true demand curve is hidden.
+
+Consider a product that sells ~100 units/day. If inventory drops to 30 units, recorded sales are 30 — but true demand was still ~100. A naive model sees this as a 70% demand drop.
+
+## Solution: Custom Loss Function
+
+I designed a censored demand loss function that:
+
+1. **Detects censored observations** — flags days where ending inventory was zero or near-zero
+2. **Adjusts the loss** — for censored observations, only penalizes the model when predictions fall *below* observed sales (since actual demand was at least that high)
+3. **Preserves uncensored learning** — for normal observations, uses standard MSE loss
+
+```python
+def censored_demand_loss(y_true, y_pred, is_censored):
+    uncensored_loss = tf.square(y_true - y_pred)
+    censored_loss = tf.maximum(0.0, y_true - y_pred) ** 2
+    return tf.where(is_censored, censored_loss, uncensored_loss)
+```
+
+## Architecture
+
+The production system processes data through four stages:
+
+1. **Ingestion** — Daily ETL from POS, inventory, and external data sources
+2. **Feature Engineering** — Lag features, rolling averages, holiday flags, promotion indicators
+3. **Model Ensemble** — LSTM for trend/seasonality + XGBoost for tabular features, blended with a learned weight
+4. **Serving** — FastAPI endpoint delivering forecasts to the planning dashboard
+
+## Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| MAPE | 28.4% | 18.5% | -35% |
+| Stockout Rate | 12.1% | 5.3% | -56% |
+| Overstock Cost | $3.8M/yr | $1.7M/yr | -55% |
+
+## Lessons Learned
+
+- **Data quality > model complexity.** Fixing the censoring issue had more impact than switching model architectures.
+- **Business context matters.** Understanding *why* zeros appeared in the data was the key insight — no amount of hyperparameter tuning would have solved it.
+- **Start with explainability.** The XGBoost component made it easy to show stakeholders which features drove predictions, building trust in the system.

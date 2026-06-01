@@ -1,0 +1,29 @@
+---
+title: "SafeEval: A Comprehensive Framework for LLM Safety Evaluation"
+date: "2025-06-15"
+venue: "ACL 2025 Workshop on Trustworthy NLP"
+abstract: "We present SafeEval, a modular evaluation framework for assessing large language model safety across multiple dimensions including toxicity, bias, hallucination, and adversarial robustness. Our framework provides standardized benchmarks, automated red-teaming pipelines, and interpretable safety scorecards."
+arxivUrl: "https://arxiv.org/abs/2505.12345"
+pdfUrl: "/papers/safeeval-2025.pdf"
+tags: ["LLM Safety", "Evaluation", "NLP", "Red-Teaming"]
+---
+
+## Abstract
+
+Large language models (LLMs) are increasingly deployed in high-stakes applications, yet standardized safety evaluation remains fragmented. We present **SafeEval**, a comprehensive evaluation framework that assesses LLM safety across four dimensions:
+
+1. **Toxicity** — Generation of harmful, offensive, or inappropriate content
+2. **Bias** — Systematic discrimination across demographic groups
+3. **Hallucination** — Confident generation of factually incorrect information
+4. **Adversarial Robustness** — Susceptibility to jailbreaks and prompt injection
+
+## Key Contributions
+
+- A **modular evaluation pipeline** that can be extended with custom safety dimensions
+- **Automated red-teaming** using adversarial prompt generation techniques
+- **Interpretable safety scorecards** that provide actionable feedback for model developers
+- Benchmarking results across 8 popular open-source LLMs
+
+## Results
+
+Our evaluation of 8 models reveals significant variation in safety profiles. Models optimized for helpfulness often score lower on adversarial robustness, while heavily safety-tuned models show reduced utility in benign contexts — highlighting the ongoing tension between safety and capability.

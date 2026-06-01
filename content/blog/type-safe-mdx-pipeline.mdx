@@ -1,0 +1,54 @@
+---
+title: "Building a Type-Safe MDX Pipeline in Next.js"
+date: "2026-02-20"
+tags: ["Next.js", "MDX", "TypeScript"]
+excerpt: "How I set up a fully type-safe content pipeline using MDX, gray-matter, and TypeScript generics for my portfolio site."
+---
+
+## Why MDX?
+
+When building a developer portfolio, you need a content system that's flexible enough for technical writing (code blocks, diagrams, custom components) but simple enough that you actually use it. MDX gives you the best of both worlds: Markdown simplicity with React component power.
+
+## The Setup
+
+The core idea is straightforward:
+
+1. Store content as `.mdx` files with YAML frontmatter
+2. Parse them at build time using `gray-matter`
+3. Render them with `next-mdx-remote`
+4. Type everything with TypeScript generics
+
+## Frontmatter Types
+
+Each content type (projects, blog posts, case studies) gets its own TypeScript interface:
+
+```typescript
+export interface BlogFrontmatter {
+  title: string;
+  date: string;
+  tags: string[];
+  excerpt: string;
+  cover?: string;
+}
+```
+
+## The Generic Content Reader
+
+The magic is a single generic function that reads any content type:
+
+```typescript
+export function getAllContent<T>(folder: string): MDXContent<T>[] {
+  const dir = path.join(contentDirectory, folder);
+  const files = fs.readdirSync(dir).filter(f => f.endsWith('.mdx'));
+  // ... parse and return typed content
+}
+```
+
+This means `getAllContent<BlogFrontmatter>('blog')` returns perfectly typed blog posts, while `getAllContent<ProjectFrontmatter>('projects')` returns typed projects — all from the same utility.
+
+## Key Takeaways
+
+- **Gray-matter** handles YAML frontmatter parsing effortlessly
+- **TypeScript generics** make the same utility work across content types
+- **Static generation** means content is parsed once at build time — zero runtime cost
+- Keep your content directory structure flat and predictable
