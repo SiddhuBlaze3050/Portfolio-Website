@@ -35,11 +35,11 @@ export default async function CaseStudyPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-3xl px-6 py-24">
       <Link
-        href="/case-studies"
+        href="/projects"
         className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to Case Studies
+        Back to Projects
       </Link>
 
       <h1 className="mt-4 text-4xl font-bold tracking-tight">

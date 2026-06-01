@@ -33,9 +33,7 @@ export function Hero() {
             {siteConfig.title}
           </p>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">
-            I build scalable web applications, design intelligent systems, and
-            publish research at the intersection of software engineering and
-            artificial intelligence.
+            I architect high-throughput AI/ML pipelines, deploy production-grade LLM orchestration engines, and build robust backend infrastructure to bring intelligent systems from research into reality.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">

@@ -16,10 +16,17 @@ export function Contact() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    
+    const formId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID || "YOUR_FORM_ID";
+
+    if (formId === "YOUR_FORM_ID") {
+      console.warn(
+        "Formspree Form ID is not configured. Please create a .env.local file in the project root and add: NEXT_PUBLIC_FORMSPREE_FORM_ID=your_id"
+      );
+    }
 
     try {
-      // Replace with your Formspree or Web3Forms endpoint
-      const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+      const res = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },

@@ -57,6 +57,15 @@ export interface ExperienceItem {
   type: "work" | "education";
 }
 
+export interface EducationItem {
+  title: string;
+  institution: string;
+  location: string;
+  startDate: string;
+  endDate: string | "Present";
+  description: string[];
+}
+
 export interface MDXContent<T> {
   slug: string;
   frontmatter: T;

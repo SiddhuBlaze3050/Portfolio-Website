@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { getAllContent } from "@/lib/mdx";
 import type { ResearchFrontmatter } from "@/lib/types";
-import { FileText, ExternalLink, Calendar } from "lucide-react";
+import { FileText, ExternalLink, Calendar, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Research & Publications",
@@ -18,7 +19,7 @@ export default function ResearchPage() {
     <div className="mx-auto max-w-3xl px-6 py-24">
       <PageHeader
         title="Research & Publications"
-        description="Academic papers, technical reports, and research projects in AI safety, NLP, and machine learning."
+        description="Academic papers, technical reports, and research projects in AI, LLM safety, NLP, and machine learning."
       />
 
       {publications.length === 0 ? (
@@ -29,9 +30,11 @@ export default function ResearchPage() {
         <div className="space-y-6">
           {publications.map((pub) => (
             <Card key={pub.slug}>
-              <h2 className="text-lg font-semibold tracking-tight">
-                {pub.frontmatter.title}
-              </h2>
+              <Link href={`/research/${pub.slug}`} className="group block">
+                <h2 className="text-lg font-semibold tracking-tight transition-colors group-hover:text-primary">
+                  {pub.frontmatter.title}
+                </h2>
+              </Link>
 
               <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                 {pub.frontmatter.venue && (
@@ -58,29 +61,39 @@ export default function ResearchPage() {
                 ))}
               </div>
 
-              <div className="mt-4 flex gap-3">
-                {pub.frontmatter.arxivUrl && (
-                  <a
-                    href={pub.frontmatter.arxivUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" />
-                    ArXiv
-                  </a>
-                )}
-                {pub.frontmatter.pdfUrl && (
-                  <a
-                    href={pub.frontmatter.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    <FileText className="h-3.5 w-3.5" />
-                    PDF
-                  </a>
-                )}
+              <div className="mt-4 flex items-center justify-between">
+                <div className="flex gap-3">
+                  {pub.frontmatter.arxivUrl && (
+                    <a
+                      href={pub.frontmatter.arxivUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      ArXiv
+                    </a>
+                  )}
+                  {pub.frontmatter.pdfUrl && (
+                    <a
+                      href={pub.frontmatter.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
+                    >
+                      <FileText className="h-3.5 w-3.5" />
+                      PDF
+                    </a>
+                  )}
+                </div>
+
+                <Link
+                  href={`/research/${pub.slug}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                >
+                  Read Full Publication
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
             </Card>
           ))}

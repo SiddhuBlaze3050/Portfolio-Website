@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { siteConfig, skills } from "@/lib/constants";
+import { siteConfig, CATEGORIZED_SKILLS } from "@/lib/constants";
 
 export function About() {
   return (
@@ -18,35 +18,39 @@ export function About() {
             {/* Bio */}
             <div className="space-y-4 text-muted-foreground">
               <p>
-                I&apos;m {siteConfig.name}, a software engineer and AI
-                researcher passionate about building products that are both
-                technically excellent and genuinely useful.
+                I am an AI/ML Engineer focused on designing intelligent systems and production-grade Data/AI/ML infrastructure. My passion lies at the intersection of scalable software engineering and artificial intelligence, where I build tools that turn complex models into reliable, high-throughput applications.
               </p>
               <p>
-                My experience spans full-stack web development, machine learning
-                systems, and applied research in NLP and LLM safety. I enjoy
-                taking complex problems apart and solving them with clean,
-                well-tested code.
+                Most recently, I architected robust backend pipelines for retail demand forecasting and engineered automated, event-driven LLM orchestration frameworks. My technical foundation is rooted in deploying machine learning models, optimizing hybrid retrieval architectures, and conducting rigorous research in AI safety and inference-time defenses.
               </p>
               <p>
-                When I&apos;m not coding, you can find me reading papers,
-                contributing to open-source, or experimenting with new AI tools.
+                I am currently completing my degree in Data Science at IIT Madras, with plans to pursue advanced graduate studies next year to further specialize in AI/ML systems. Outside of production code, you can usually find me competing in predictive modeling challenges, reading research papers,
+                contributing to open-source, experimenting with new AI tools, and exploring new architectures in generative AI.
               </p>
             </div>
 
             {/* Skills grid */}
-            <div>
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <div className="space-y-6">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                 Technologies &amp; Skills
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="rounded-full border border-border bg-muted px-3 py-1.5 text-sm font-medium text-foreground"
-                  >
-                    {skill}
-                  </span>
+              <div className="flex flex-col gap-6">
+                {CATEGORIZED_SKILLS.map((categoryGroup) => (
+                  <div key={categoryGroup.category}>
+                    <h4 className="mb-3 text-sm font-medium text-foreground">
+                      {categoryGroup.category}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {categoryGroup.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-full border border-border bg-muted px-3 py-1.5 text-sm font-medium text-foreground"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>

@@ -1,0 +1,29 @@
+---
+title: "Capability-Aware Evaluation of Inference-Time LLM Safety Defenses Under Single and Multi-Turn Context"
+date: "2026-07-15"
+venue: "AI Safety Research Workshop"
+abstract: "As Large Language Models (LLMs) are increasingly deployed in complex, conversational environments, sophisticated multi-turn jailbreaks have exposed the fragility of traditional alignment methods. While modern defense mechanisms—such as inference-time decoding interventions and external guardrail classifiers—offer robust protection against isolated attacks, their evaluation is frequently flawed. Traditional binary Attack Success Rate (ASR) metrics fail to penalize capability degradation, inadvertently rewarding ”Exaggerated Safety” where models simply refuse benign, complex requests. Furthermore, these defenses are rarely evaluated against compounding multi-turn adversarial context. We present a capability-aware evaluation framework using the StrongREJECT autograder to assess both safety and utility preservation under Baseline, SafeDecoding, and LlamaGuard-3 across three model families (Llama3.1-8B, Mistral-7B, Gemini-2.5 Flash). We evaluate 356 instances spanning WalledEval harmful prompts, XSTest benign prompts, and CoSafe multi-turn scenarios. The results reveal a clear safety–utility tradeoff: while LlamaGuard-3 achieves the highest harmful-vs-benign separability (AUC 0.916–0.942), it increases benign over-refusal (FRR 2.3% → 11.3%). Multi-turn evaluation further shows turn-wise drift in StrongREJECT scores over three turns, and the direction of drift depends on both the model family and the defense condition. Together, these findings show that refusal-only metrics can produce false safety, and that multi-turn statefulness should be treated as a primary evaluation criterion for realworld deployments."
+arxivUrl: "https://arxiv.org/abs"
+pdfUrl: "/papers/LLM_Safety_Evaluation.pdf"
+tags: ["LLM Safety", "Multi-Turn Jailbreaks", "Adversarial Robustness", "Capability-Aware Evaluation", "Exaggerated Safety", "Guardrails"]
+---
+
+## Abstract
+
+As Large Language Models (LLMs) are increasingly deployed in complex, conversational environments, sophisticated multi-turn jailbreaks have exposed the fragility of traditional alignment methods. Although modern defense mechanisms—such as inference-time decoding interventions and external guardrail classifiers—can offer robust protection against isolated attacks, their evaluation is frequently flawed. 
+
+Traditional binary Attack Success Rate (ASR) metrics fail to penalize capability degradation, inadvertently rewarding "Exaggerated Safety" where models simply refuse benign, complex requests. Furthermore, these defenses are rarely evaluated against compounding multi-turn adversarial context. We present a capability-aware evaluation framework using the StrongREJECT autograder to score harmful compliance on a continuous scale and report an interpretable safety signal, enabling joint assessment of safety and utility preservation under Baseline, SafeDecoding, and LlamaGuard-3 across three model families (Llama-3.1-8B, Mistral-7B, Gemini-2.5 Flash).
+
+## Research Questions & Contributions
+
+We propose a capability-aware evaluation framework to assess inference-time defenses (SafeDecoding) and external guardrails (LlamaGuard-3), quantifying their safety gain versus utility cost relative to baseline models. Our evaluation pipeline sources 356 instances spanning WalledEval harmful prompts, XSTest benign prompts, and CoSafe multi-turn scenarios.
+
+We structure our evaluation around core questions including:
+1. How do Baseline, SafeDecoding, and LlamaGuard-3 differ on the safety–utility Pareto frontier across distinct model families?
+2. At a strict false-positive budget (TPR@1%FPR), which defense mechanisms improve the interception of harmful content without inducing excessive benign refusals (FRR)?
+
+## Key Findings
+
+- **Safety-Utility Tradeoff:** While LlamaGuard-3 achieves the highest harmful-vs-benign separability (AUC 0.916–0.942), it inadvertently increases benign over-refusal (FRR 2.3% → 11.3%).
+- **Multi-Turn Context Drift:** Evaluation shows turn-wise drift in StrongREJECT scores over three turns, and the direction of drift depends heavily on both the model family and the defense condition. 
+- **Refusal-Only Metrics Fallacy:** Refusal-only metrics can produce false safety, demonstrating that multi-turn statefulness should be treated as a primary evaluation criterion for real-world deployments.

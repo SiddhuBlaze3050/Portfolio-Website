@@ -65,13 +65,61 @@ body {
   --tw-prose-headings: var(--foreground);
   --tw-prose-links: var(--primary);
   --tw-prose-code: var(--accent);
+  line-height: 1.75;
 }
 
-.prose h1,
-.prose h2,
-.prose h3 {
-  font-weight: 700;
+.prose h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
+
+.prose p {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  color: var(--muted-foreground);
+  font-size: 1rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  padding-left: 1.625rem;
+}
+
+.prose ol {
+  list-style-type: decimal;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  padding-left: 1.625rem;
+}
+
+.prose li {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  color: var(--muted-foreground);
 }
 
 .prose a {
